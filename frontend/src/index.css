@@ -1,0 +1,114 @@
+@import 'tailwindcss';
+
+/*
+ * Sistema de diseño.
+ *
+ * Los colores se definen como variables "semánticas" (fondo, texto, borde,
+ * primario...) y no como "azul" o "gris": así el modo oscuro solo tiene que
+ * cambiar el valor de cada variable y todos los componentes se adaptan.
+ * `@theme inline` las convierte en clases de Tailwind: bg-card, text-muted-foreground,
+ * border-border, bg-primary, etc.
+ */
+
+/* El modo oscuro se activa con la clase .dark en <html> (ver hooks/useTheme.js). */
+@custom-variant dark (&:where(.dark, .dark *));
+
+:root {
+  --background: #f7f8fa;
+  --foreground: #0f172a;
+  --card: #ffffff;
+  --muted: #f1f3f6;
+  --muted-foreground: #64748b;
+  --border: #e3e7ed;
+  --input: #d7dce4;
+  --primary: #4f46e5;
+  --primary-hover: #4338ca;
+  --primary-foreground: #ffffff;
+  --primary-soft: #eef0ff;
+  --accent: #f1f3f6;
+  --success: #16a34a;
+  --success-soft: #e8f7ee;
+  --warning: #d97706;
+  --warning-soft: #fdf3e2;
+  --danger: #dc2626;
+  --danger-soft: #fdecec;
+  --ring: #a5b4fc;
+  --sidebar: #ffffff;
+}
+
+.dark {
+  --background: #0b0f17;
+  --foreground: #e6e9ef;
+  --card: #121826;
+  --muted: #1a2131;
+  --muted-foreground: #8b95a7;
+  --border: #232b3b;
+  --input: #2c3547;
+  --primary: #6d6af8;
+  --primary-hover: #8380fa;
+  --primary-foreground: #ffffff;
+  --primary-soft: #1f2148;
+  --accent: #1a2131;
+  --success: #34c46c;
+  --success-soft: #12291c;
+  --warning: #f0a33a;
+  --warning-soft: #2e2212;
+  --danger: #f05d5d;
+  --danger-soft: #331717;
+  --ring: #4f46e5;
+  --sidebar: #0f1420;
+}
+
+@theme inline {
+  --font-sans: 'Inter Variable', ui-sans-serif, system-ui, sans-serif;
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-primary: var(--primary);
+  --color-primary-hover: var(--primary-hover);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary-soft: var(--primary-soft);
+  --color-accent: var(--accent);
+  --color-success: var(--success);
+  --color-success-soft: var(--success-soft);
+  --color-warning: var(--warning);
+  --color-warning-soft: var(--warning-soft);
+  --color-danger: var(--danger);
+  --color-danger-soft: var(--danger-soft);
+  --color-ring: var(--ring);
+  --color-sidebar: var(--sidebar);
+}
+
+@layer base {
+  html {
+    color-scheme: light;
+  }
+  html.dark {
+    color-scheme: dark;
+  }
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-feature-settings: 'cv11', 'ss01';
+  }
+  * {
+    @apply border-border;
+  }
+}
+
+/* Animaciones pequeñas para modales y avisos. */
+@keyframes fade-in {
+  from { opacity: 0; }
+}
+@keyframes pop-in {
+  from { opacity: 0; transform: translateY(6px) scale(0.98); }
+}
+@utility animate-fade-in {
+  animation: fade-in 150ms ease-out;
+}
+@utility animate-pop-in {
+  animation: pop-in 180ms ease-out;
+}
